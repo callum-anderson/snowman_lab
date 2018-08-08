@@ -8,15 +8,21 @@ player_name = gets.chomp
 player1 = Player.new(player_name)
 new_game = Game.new(player1, secret_word)
 
-puts "Welcome #{player_name}...   please enter a letter"
+puts "Welcome #{player_name}...   your word has #{secret_word.word.length} characters."
+puts "Please enter a letter."
 
 while new_game.game_progress_won == false && new_game.game_progress_lost == false
-guess = gets.chomp()
-new_game.guess_a_letter(guess)
-puts secret_word.display_word(new_game.guessed_letters)
-if player1.lives == 1
-  puts "You have 1 life left!"
-end
+  guess = gets.chomp()
+  if guess.length > 1
+    puts "You must enter only one character!"
+  else
+    new_game.guess_a_letter(guess)
+    puts secret_word.display_word(new_game.guessed_letters)
+    if player1.lives == 1
+      puts "You have 1 life left!"
+    end
+  end
+
 end
 if new_game.game_progress_won == true
   puts "Well done, you guessed correctly!"
