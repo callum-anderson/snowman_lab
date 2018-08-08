@@ -1,14 +1,22 @@
 require_relative("./game.rb")
 require_relative("./hidden_word.rb")
 require_relative("./player.rb")
+require("pry")
 
-secret_word = HiddenWord.new("learn")
-puts "Welcome to Snowman game! Please enter your name:"
-player_name = gets.chomp
-player1 = Player.new(player_name)
+
+puts "Welcome to Snowman game! Player 1 - please enter the secret word or phrase to guess: "
+  secret_word_input = gets.chomp
+while !(secret_word_input =~ /[a-zA-Z]+/)
+  puts "Please enter a word or phrase with alpha characters only."
+  secret_word_input = gets.chomp
+end
+secret_word_input = secret_word_input.split
+system("clear")
+secret_word = HiddenWord.new(secret_word_input)
+player1 = Player.new("Player 1")
 new_game = Game.new(player1, secret_word)
 
-puts "Welcome #{player_name}...   your word has #{secret_word.word.length} characters."
+puts "Welcome Player 2...   your word/phrase has #{secret_word.word.join.length} characters."
 puts "Please enter a letter."
 
 while new_game.game_progress_won == false && new_game.game_progress_lost == false
@@ -19,7 +27,7 @@ while new_game.game_progress_won == false && new_game.game_progress_lost == fals
     puts "The word does not contain letters/symbols - please enter a character."
   else
     new_game.guess_a_letter(guess)
-    puts secret_word.display_word(new_game.guessed_letters)
+    puts secret_word.display_word(new_game.guessed_letters).join(" ")
     if player1.lives == 1
       puts "You have 1 life left!"
     end

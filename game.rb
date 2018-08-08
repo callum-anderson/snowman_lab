@@ -14,7 +14,7 @@ def guess_a_letter(letter)
   else
     @player.lives -= 1
   end
-  
+
 end
 
 # def game_progress_won
@@ -25,7 +25,7 @@ end
   # end
 
 def game_progress_won
-  if @word.word == @word.display_word(@guessed_letters)
+  if @word.word.join == @word.display_word(@guessed_letters).join
     return true
   else return false
   end
